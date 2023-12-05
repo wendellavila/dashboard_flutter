@@ -359,7 +359,7 @@ class _HomeScreen extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Monthly Newsletter",
+                              "Newsletter",
                               style: TextStyle(
                                 fontSize: 50,
                                 fontWeight: FontWeight.w500,
@@ -541,16 +541,16 @@ class _HomeScreen extends State<HomeScreen> {
               color: tileColor,
               borderRadius: BorderRadius.circular(3),
             ),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                textSelectionTheme: TextSelectionThemeData(selectionColor: selectionColor),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-                child: Column(
-                  children: [
-                    for (int i = 0; i < nameList.length; i++)
-                      Row(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+              child: Column(
+                children: [
+                  for (int i = 0; i < nameList.length; i++)
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                        textSelectionTheme: TextSelectionThemeData(selectionColor: selectionColor),
+                      ),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -569,8 +569,8 @@ class _HomeScreen extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
             ),
           ),
@@ -623,10 +623,11 @@ class _HomeScreen extends State<HomeScreen> {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 if (constraints.maxWidth < 1000 && constraints.maxWidth > 500) {
+                  print(items.length);
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
+                      Expanded(
                         child: Column(
                           children: [
                             ...items.sublist(0, (items.length / 2).floor()),
@@ -636,7 +637,7 @@ class _HomeScreen extends State<HomeScreen> {
                       const SizedBox(
                         width: 20,
                       ),
-                      Flexible(
+                      Expanded(
                         child: Column(
                           children: [
                             ...items.sublist((items.length / 2).floor(), items.length),
