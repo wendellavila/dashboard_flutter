@@ -182,7 +182,7 @@ class _LoginScreen extends State<LoginScreen> {
                       _loginNavigation();
                     },
               child: Text(
-                "ENTRAR",
+                "ENTER",
                 style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context).colorScheme.onPrimary,

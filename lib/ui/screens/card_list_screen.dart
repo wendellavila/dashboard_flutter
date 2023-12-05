@@ -230,7 +230,7 @@ class _CardListScreen extends State<CardListScreen> {
         child: TextField(
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
           decoration: InputDecoration(
-            labelText: 'Filtrar',
+            labelText: 'Filter',
             isDense: true,
             contentPadding: const EdgeInsets.only(left: 12),
             labelStyle: TextStyle(

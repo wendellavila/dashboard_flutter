@@ -623,7 +623,6 @@ class _HomeScreen extends State<HomeScreen> {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 if (constraints.maxWidth < 1000 && constraints.maxWidth > 500) {
-                  print(items.length);
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
