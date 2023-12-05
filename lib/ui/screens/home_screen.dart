@@ -452,13 +452,14 @@ class _HomeScreen extends State<HomeScreen> {
             width: 500,
             child: PlatformWebViewWidget(
               PlatformWebViewWidgetCreationParams(
-                  controller: PlatformWebViewController(
-                const PlatformWebViewControllerCreationParams(),
-              )..loadRequest(
-                      LoadRequestParams(
-                        uri: Uri.parse("${widget.baseUrl}/data/Home/${_isThemeLight() ? "weather.html" : "weather_dark.html"}"),
-                      ),
-                    )),
+                controller: PlatformWebViewController(
+                  const PlatformWebViewControllerCreationParams(),
+                )..loadRequest(
+                    LoadRequestParams(
+                      uri: Uri.parse("${widget.baseUrl}/assets/html/weather${_isThemeLight() ? "" : "_dark"}.html"),
+                    ),
+                  ),
+              ),
             ).build(context),
           ),
         ],
@@ -500,7 +501,7 @@ class _HomeScreen extends State<HomeScreen> {
                   const PlatformWebViewControllerCreationParams(),
                 )..loadRequest(
                     LoadRequestParams(
-                      uri: Uri.parse("${widget.baseUrl}/data/Home/${_isThemeLight() ? "currency.html" : "currency_dark.html"}"),
+                      uri: Uri.parse("${widget.baseUrl}/assets/html/currency${_isThemeLight() ? "" : "_dark"}.html"),
                     ),
                   ),
               ),
