@@ -164,11 +164,11 @@ class _GalleryScreen extends State<GalleryScreen> {
   }
 
   Widget _galleryBody() {
-    return RawKeyboardListener(
+    return KeyboardListener(
       focusNode: FocusNode(),
       autofocus: true,
-      onKey: (event) {
-        if (event is RawKeyDownEvent) {
+      onKeyEvent: (event) {
+        if (event is KeyDownEvent) {
           return switch (event.logicalKey.keyLabel) {
             "Arrow Left" => _previousImage(),
             "Arrow Right" => _nextImage(),

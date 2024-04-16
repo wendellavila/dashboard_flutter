@@ -49,7 +49,7 @@ class _SideBar extends State<SideBar> {
                 height: 8,
               ),
               Text(
-                "SIDEROUTING",
+                "dashboard_flutter",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 22,

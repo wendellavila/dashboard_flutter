@@ -49,7 +49,7 @@ Map<Pattern, dynamic Function(BuildContext, BeamState, Object?)> _beamerRoutes()
   for (final item in _navigationData.menuItems) {
     routes["/${item['route']}"] = (context, state, data) => BeamPage(
           key: ValueKey(item['route']),
-          title: "Siderouting - ${item['title']}",
+          title: "dashboard_flutter - ${item['title']}",
           child: Scaffold(
             body: Row(
               children: [
@@ -110,7 +110,7 @@ Map<Pattern, dynamic Function(BuildContext, BeamState, Object?)> _beamerRoutes()
 
       return BeamPage(
         key: ValueKey("${item['route']}/view?p=$path&t=$type&s=$sort&b=$showBanner&d=$showDate"),
-        title: "Siderouting - ${item['title']}",
+        title: "dashboard_flutter - ${item['title']}",
         child: Scaffold(
           body: Row(
             children: [
@@ -207,7 +207,7 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, _) {
         return MaterialApp.router(
-          title: 'Siderouting',
+          title: 'dashboard_flutter',
           theme: _themeData(themeMode: ThemeMode.light),
           darkTheme: _themeData(themeMode: ThemeMode.dark),
           themeMode: themeProvider.getTheme(),

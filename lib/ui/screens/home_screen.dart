@@ -800,7 +800,7 @@ class _HomeScreen extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Siderouting",
+                    "dashboard_flutter",
                     style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSurface),
                   ),
                   Text(
@@ -824,7 +824,7 @@ class _HomeScreen extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Siderouting",
+                    "dashboard_flutter",
                     style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSurface),
                   ),
                   Text(

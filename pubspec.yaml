@@ -1,5 +1,5 @@
-name: siderouting
-description: A responsive web page with sidemenu and routing
+name: dashboard_flutter
+description: A responsive web dashboard with sidemenu and routing
 
 publish_to: 'none'
 
@@ -11,17 +11,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter_web: ^0.2.2+3
-  webview_flutter_platform_interface: ^2.7.0
-  provider: ^6.1.1
-  url_launcher: ^6.1.14
+  webview_flutter_web: ^0.2.2+4
+  webview_flutter_platform_interface: ^2.10.0
+  provider: ^6.1.2
+  url_launcher: ^6.2.6
   http: ^1.1.2
   hyphenatorx: ^1.5.9
-  shared_preferences: ^2.2.2
-  beamer: ^1.5.6
+  shared_preferences: ^2.2.3
+  beamer: ^1.6.1
   photo_view: ^0.14.0
   image_downloader_web: ^2.0.4
-  word_generator: ^0.4.3
+  word_generator: ^0.4.4
   flutter_launcher_icons: ^0.13.1
   #flutter_side_menu: ^0.4.0
   flutter_side_menu:

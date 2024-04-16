@@ -1,6 +1,6 @@
 {
-    "name": "siderouting",
-    "short_name": "siderouting",
+    "name": "dashboard_flutter",
+    "short_name": "dashboard_flutter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
