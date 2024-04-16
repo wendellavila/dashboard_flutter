@@ -1,5 +1,5 @@
 # dashboard_flutter
-A responsive web page, made with Flutter Web 3.16.
+A responsive web dashboard, made with Flutter Web 3.16.
 
 ## Features
  - Side menu navigation
