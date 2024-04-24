@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
+import '../../../../services/permission_preferences.dart';
 
-import 'dir_viewer_screen.dart';
-import '../../services/permission_preferences.dart';
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key, required this.permissionPreferences, required this.menuData, required this.baseUrl, required this.onLoginSuccessful});
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({
-    required this.menuData,
-    required this.baseUrl,
-    super.key,
-  });
-
+  final PermissionPreferences permissionPreferences;
   final String baseUrl;
   final Map menuData;
+  final VoidCallback onLoginSuccessful;
 
   @override
-  State<LoginScreen> createState() => _LoginScreen();
+  State<LoginForm> createState() => _LoginForm();
 }
 
-class _LoginScreen extends State<LoginScreen> {
-  PermissionPreferences? permissionPreferences;
+class _LoginForm extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usercodeController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -28,20 +24,10 @@ class _LoginScreen extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _readPermissionPreferences();
-  }
-
-  Future<void> _readPermissionPreferences() async {
-    permissionPreferences = await PermissionPreferences.create();
-    setState(() {});
   }
 
   Future<bool> _login({required String user, required String password}) async {
     return true;
-  }
-
-  bool _isThemeLight() {
-    return Theme.of(context).colorScheme.brightness == Brightness.light;
   }
 
   void _loginNavigation() {
@@ -49,8 +35,9 @@ class _LoginScreen extends State<LoginScreen> {
       (value) {
         if (value) {
           setState(() {
-            permissionPreferences!.updateLoginPermission(true);
+            widget.permissionPreferences.updateLoginPermission(true);
           });
+          widget.onLoginSuccessful();
         } else {
           setState(() {
             _showErrorMessage = true;
@@ -60,39 +47,16 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
-  Card _cardItem({Widget? child}) {
-    return Card(
-      color: Theme.of(context).colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: child,
-      ),
-    );
-  }
-
-  Widget _header() {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            widget.menuData['title'],
-            textAlign: TextAlign.start,
-            style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSurface),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _loginForm() {
+  @override
+  Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 5, top: 35),
+            padding: const EdgeInsets.only(bottom: 5, top: 15),
             child: Text(
-              "User",
+              "Username",
               style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.onSurface),
             ),
           ),
@@ -148,7 +112,7 @@ class _LoginScreen extends State<LoginScreen> {
                       ),
                       suffixIconColor: Theme.of(context).colorScheme.primary,
                       suffixIcon: IconButton(
-                        icon: Icon(_showPassword ? Icons.visibility_off : Icons.visibility),
+                        icon: Icon(_showPassword ? Symbols.visibility_off_sharp : Symbols.visibility_sharp),
                         onPressed: () => setState(
                           () {
                             _showPassword = _showPassword ? false : true;
@@ -182,7 +146,7 @@ class _LoginScreen extends State<LoginScreen> {
                       _loginNavigation();
                     },
               child: Text(
-                "ENTER",
+                "ENTRAR",
                 style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context).colorScheme.onPrimary,
@@ -193,77 +157,16 @@ class _LoginScreen extends State<LoginScreen> {
           const SizedBox(
             height: 10,
           ),
+          if (_showErrorMessage)
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Text(
+                "Login Inválido.",
+                style: TextStyle(color: Colors.red),
+              ),
+            )
         ],
       ),
     );
-  }
-
-  Widget _unloggedBody() {
-    return SelectionArea(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            _header(),
-            const SizedBox(
-              height: 20,
-            ),
-            _cardItem(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      width: 120,
-                      child: Image(
-                        image: AssetImage(
-                          'assets/img/logo/${_isThemeLight() ? "logo.png" : "logo_dark.png"}',
-                        ),
-                        width: 500,
-                      )),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Restricted Area",
-                    style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSurface),
-                    textAlign: TextAlign.center,
-                  ),
-                  _loginForm(),
-                  if (_showErrorMessage)
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Text(
-                        "Invalid Credentials",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _bodySwitcher() {
-    if (permissionPreferences == null) {
-      return const SizedBox.shrink();
-    } else if (permissionPreferences!.getLoginPermission()) {
-      return DirViewerScreen(
-        baseUrl: widget.baseUrl,
-        menuData: widget.menuData,
-      );
-    }
-    return Scaffold(
-      body: _unloggedBody(),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _bodySwitcher();
   }
 }

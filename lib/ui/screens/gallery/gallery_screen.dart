@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_downloader_web/image_downloader_web.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
+
+import 'widgets/close_button.dart';
+import 'widgets/arrow_button.dart';
 
 class GalleryScreen extends StatefulWidget {
   const GalleryScreen({
@@ -40,24 +44,6 @@ class _GalleryScreen extends State<GalleryScreen> {
     }
   }
 
-  Widget _leftArrow() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 40,
-          onPressed: _currentIndex - 1 >= 0 ? () => _previousImage() : null,
-          icon: Icon(
-            Icons.chevron_left,
-            size: 40,
-            color: _currentIndex - 1 >= 0 ? Colors.white : null,
-          ),
-          disabledColor: Colors.white.withOpacity(0.4),
-        ),
-      ],
-    );
-  }
-
   void _nextImage() {
     if (_currentIndex + 1 < widget.photos.length) {
       pageController
@@ -66,52 +52,20 @@ class _GalleryScreen extends State<GalleryScreen> {
     }
   }
 
-  Widget _rightArrow() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          iconSize: 40,
-          onPressed: _currentIndex + 1 < widget.photos.length ? () => _nextImage() : null,
-          icon: Icon(
-            Icons.chevron_right,
-            size: 40,
-            color: _currentIndex + 1 < widget.photos.length ? Colors.white : null,
-          ),
-          disabledColor: Colors.white.withOpacity(0.4),
-        ),
-      ],
-    );
-  }
-
-  Widget _closeButton() {
-    return Padding(
-      padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.02),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(
-            iconSize: 40,
-            onPressed: () {
-              Navigator.of(context).maybePop(context);
-            },
-            icon: const Icon(
-              Icons.close,
-              size: 40,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _imageViewer() {
     return Column(
       children: [
         Row(
           children: [
-            _leftArrow(),
+            ArrowButton(
+              onPressed: _currentIndex - 1 >= 0 ? () => _previousImage() : null,
+              icon: Icon(
+                Symbols.chevron_left_sharp,
+                weight: 650,
+                size: 40,
+                color: _currentIndex - 1 >= 0 ? Colors.white : null,
+              ),
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height > 800 ? 600 : MediaQuery.of(context).size.height * 0.5,
               width: MediaQuery.of(context).size.width > 600 ? MediaQuery.of(context).size.width * 0.6 : 300,
@@ -126,7 +80,15 @@ class _GalleryScreen extends State<GalleryScreen> {
                 },
               ),
             ),
-            _rightArrow(),
+            ArrowButton(
+              onPressed: _currentIndex + 1 < widget.photos.length ? () => _nextImage() : null,
+              icon: Icon(
+                Symbols.chevron_right_sharp,
+                weight: 650,
+                size: 40,
+                color: _currentIndex + 1 < widget.photos.length ? Colors.white : null,
+              ),
+            ),
           ],
         ),
         const SizedBox(
@@ -143,14 +105,15 @@ class _GalleryScreen extends State<GalleryScreen> {
           child: const Row(
             children: [
               Icon(
-                Icons.download_outlined,
+                Symbols.download_sharp,
+                weight: 650,
                 color: Colors.white,
               ),
               SizedBox(
                 width: 5,
               ),
               Text(
-                "Download",
+                "Baixar",
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,
@@ -163,40 +126,39 @@ class _GalleryScreen extends State<GalleryScreen> {
     );
   }
 
-  Widget _galleryBody() {
-    return KeyboardListener(
-      focusNode: FocusNode(),
-      autofocus: true,
-      onKeyEvent: (event) {
-        if (event is KeyDownEvent) {
-          return switch (event.logicalKey.keyLabel) {
-            "Arrow Left" => _previousImage(),
-            "Arrow Right" => _nextImage(),
-            "Escape" => Navigator.of(context).maybePop(context),
-            _ => () {}
-          };
-        }
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _closeButton(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _imageViewer(),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.6),
-      body: _galleryBody(),
+      body: KeyboardListener(
+        focusNode: FocusNode(),
+        autofocus: true,
+        onKeyEvent: (event) {
+          if (event is KeyDownEvent) {
+            return switch (event.logicalKey.keyLabel) {
+              "Arrow Left" => _previousImage(),
+              "Arrow Right" => _nextImage(),
+              "Escape" => Navigator.of(context).maybePop(context),
+              _ => () {}
+            };
+          }
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CloseImageButton(
+              context: context,
+              onPressed: () => Navigator.of(context).maybePop(context),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _imageViewer(),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

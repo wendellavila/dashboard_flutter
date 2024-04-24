@@ -7,6 +7,10 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeProvider._();
 
+  ThemeMode get theme => _themeMode;
+  bool get isLight => _themeMode == ThemeMode.light;
+  bool get isDark => _themeMode == ThemeMode.dark;
+
   static Future<ThemeProvider> create() async {
     await loadPreferences();
     return ThemeProvider._();
@@ -31,9 +35,5 @@ class ThemeProvider extends ChangeNotifier {
       await prefs.setBool('darkTheme', false);
     }
     notifyListeners();
-  }
-
-  ThemeMode getTheme() {
-    return _themeMode;
   }
 }

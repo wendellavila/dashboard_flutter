@@ -28,6 +28,7 @@ dependencies:
     git:
       url: https://github.com/wendellavila/flutter_side_menu
       ref: main # branch name
+  material_symbols_icons: ^4.2719.3
 
 dev_dependencies:
   flutter_test:

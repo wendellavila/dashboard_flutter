@@ -1,93 +1,27 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
+import 'package:provider/provider.dart';
 
-import '../../services/navigation_data.dart';
+import '../../config/navigation_data.dart';
+import '../../services/theme_provider.dart';
 
-class SideBar extends StatefulWidget {
-  const SideBar({
+class SideBar extends StatelessWidget {
+  SideBar({
     super.key,
   });
 
-  @override
-  State<SideBar> createState() => _SideBar();
-}
-
-class _SideBar extends State<SideBar> {
   final NavigationData _navigationData = NavigationData.singletonInstance;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  bool _isThemeLight() {
-    return Theme.of(context).colorScheme.brightness == Brightness.light;
-  }
-
-  Widget _sideMenuHeader({required bool isMenuOpen}) {
-    if (isMenuOpen) {
-      return ListTile(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Column(
-            children: [
-              InkWell(
-                hoverColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 40),
-                  child: Image(
-                    width: 120,
-                    image: AssetImage("assets/img/logo/${_isThemeLight() ? "logo.png" : "logo_dark.png"}"),
-                  ),
-                ),
-                onTap: () => Beamer.of(context).beamToNamed("/inicio"),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                "dashboard_flutter",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: -0.6,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    } else {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 12, bottom: 20),
-            child: InkWell(
-              child: Image(
-                width: 30,
-                image: AssetImage("assets/img/logo/${_isThemeLight() ? "logo.png" : "logo_dark.png"}"),
-              ),
-              onTap: () => Beamer.of(context).beamToNamed("/inicio"),
-            ),
-          )
-        ],
-      );
-    }
-  }
-
-  bool _calculateSelectedIndex({required String route}) {
+  bool _calculateSelectedIndex({required context, required String route}) {
     String currentRoute = Beamer.of(context).beamingHistory.last.state.routeInformation.uri.toString().substring(1);
     //removing pathParameters and subroutes
     currentRoute = currentRoute.split("?").first.split("/").first;
     return currentRoute == route;
   }
 
-  SideMenuItemDataTile _sideMenuItem({required int index, required Map menuItemData, required bool isMenuOpen, required isSelected}) {
+  SideMenuItemDataTile _sideMenuItem(
+      {required context, required int index, required Map menuItemData, required bool isMenuOpen, required isSelected}) {
     return SideMenuItemDataTile(
       isSelected: isSelected,
       title: menuItemData['title'] ?? '',
@@ -100,10 +34,12 @@ class _SideBar extends State<SideBar> {
       ),
       icon: Icon(
         menuItemData['icon'] ?? '',
+        weight: 650,
         color: Theme.of(context).colorScheme.onSurface,
       ),
       selectedIcon: Icon(
         menuItemData['icon'] ?? '',
+        weight: 650,
         color: Theme.of(context).colorScheme.onPrimary,
       ),
       highlightSelectedColor: Theme.of(context).colorScheme.primary,
@@ -111,20 +47,19 @@ class _SideBar extends State<SideBar> {
     );
   }
 
-  List<SideMenuItemDataTile> _generateMenuItems({required bool isMenuOpen}) {
+  List<SideMenuItemDataTile> _generateMenuItems({required context, required bool isMenuOpen}) {
     List<SideMenuItemDataTile> items = [];
-    List<Map> menuItemData = _navigationData.menuItems;
-    for (int i = 0; i < menuItemData.length; i++) {
+    for (int i = 0; i < _navigationData.menuItems.length; i++) {
       items.add(
         _sideMenuItem(
+          context: context,
           index: i,
-          menuItemData: menuItemData[i],
+          menuItemData: _navigationData.menuItems[i],
           isMenuOpen: isMenuOpen,
-          isSelected: _calculateSelectedIndex(route: menuItemData[i]['route']),
+          isSelected: _calculateSelectedIndex(context: context, route: _navigationData.menuItems[i]['route']),
         ),
       );
     }
-
     return items;
   }
 
@@ -153,8 +88,8 @@ class _SideBar extends State<SideBar> {
         ),
         builder: (data) {
           return SideMenuData(
-            header: _sideMenuHeader(isMenuOpen: data.isOpen),
-            items: _generateMenuItems(isMenuOpen: data.isOpen),
+            header: SideMenuHeader(isMenuOpen: data.isOpen),
+            items: _generateMenuItems(context: context, isMenuOpen: data.isOpen),
             footer: const SizedBox(
               height: 10,
             ),
@@ -162,5 +97,70 @@ class _SideBar extends State<SideBar> {
         },
       ),
     );
+  }
+}
+
+class SideMenuHeader extends StatelessWidget {
+  const SideMenuHeader({
+    super.key,
+    required this.isMenuOpen,
+  });
+
+  final bool isMenuOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isMenuOpen) {
+      return ListTile(
+        title: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            children: [
+              InkWell(
+                hoverColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: Image(
+                    width: 120,
+                    image: AssetImage("assets/img/logo/${Provider.of<ThemeProvider>(context).isLight ? "logo.png" : "logo_dark.png"}"),
+                  ),
+                ),
+                onTap: () => Beamer.of(context).beamToNamed("/inicio"),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                "DASHBOARD",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: -0.6,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 12, bottom: 20),
+            child: InkWell(
+              child: Image(
+                width: 30,
+                image: AssetImage("assets/img/logo/${Provider.of<ThemeProvider>(context).isLight ? "logo.png" : "logo_dark.png"}"),
+              ),
+              onTap: () => Beamer.of(context).beamToNamed("/inicio"),
+            ),
+          )
+        ],
+      );
+    }
   }
 }
