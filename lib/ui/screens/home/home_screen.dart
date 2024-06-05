@@ -57,7 +57,7 @@ class _HomeScreen extends State<HomeScreen> {
     for (int i = 1; i < lastDay + 1; i++) {
       _birthdayData[i.toString()] = [];
       final randomInt = 1 + random.nextInt(5 - 1);
-      for (int _ = 0; _ < randomInt; _++) {
+      for (int j = 0; j < randomInt; j++) {
         _birthdayData[i.toString()]!.add(wordGenerator.randomName());
       }
     }

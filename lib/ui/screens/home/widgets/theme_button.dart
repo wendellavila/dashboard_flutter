@@ -20,22 +20,22 @@ class ThemeButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onThemeSwitch,
         style: ButtonStyle(
-          elevation: MaterialStateProperty.all(1),
-          padding: MaterialStateProperty.all(
+          elevation: WidgetStateProperty.all(1),
+          padding: WidgetStateProperty.all(
             const EdgeInsets.symmetric(vertical: 18, horizontal: 6),
           ),
           animationDuration: const Duration(seconds: 0),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.hovered)) {
+              if (states.contains(WidgetState.hovered)) {
                 return Colors.white;
               }
               return Theme.of(context).colorScheme.onSurface;
             },
           ),
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.hovered)) {
+              if (states.contains(WidgetState.hovered)) {
                 return Theme.of(context).colorScheme.primary;
               }
               return Theme.of(context).colorScheme.surface;

@@ -30,8 +30,8 @@ class FilterBar extends StatelessWidget {
                 width: 0.0,
               ),
             ),
-            suffixIconColor: MaterialStateColor.resolveWith(
-                (states) => states.contains(MaterialState.focused) ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface),
+            suffixIconColor: WidgetStateColor.resolveWith(
+                (states) => states.contains(WidgetState.focused) ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface),
             suffixIcon: const Icon(
               Symbols.search_sharp,
               weight: 650,

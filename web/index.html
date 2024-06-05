@@ -18,7 +18,7 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Dashboard">
+  <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,50 +31,8 @@
 
   <title>dashboard_flutter</title>
   <link rel="manifest" href="manifest.json">
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script>
-    // Preventing zoom on Ctrl+-/Ctrl+=/Ctrl+Scroll
-    // https://stackoverflow.com/a/67039463/6509751.
-    // Due to flutter web html renderer bug
-    // https://github.com/flutter/flutter/issues/129182
-    document.addEventListener('wheel', function(e) {
-      e.ctrlKey && e.preventDefault();
-    }, {
-      passive: false,
-    });
-    window.addEventListener('keydown', function(e) {
-      if (event.ctrlKey) {
-        switch (event.key) {
-          case '=': // Prevent zooming in.
-          case '-': // Prevent zooming out.
-            event.preventDefault();
-            break;
-        }
-      }
-    });
-  </script>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        entrypointUrl: "main.dart.js?v=" + serviceWorkerVersion, //ignore cache on new deploy
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      });
-    });
-  </script>
+  <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
