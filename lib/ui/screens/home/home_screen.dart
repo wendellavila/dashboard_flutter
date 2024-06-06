@@ -66,7 +66,7 @@ class _HomeScreen extends State<HomeScreen> {
 
   void _loadNews() async {
     _newsData = {
-      'url': "${widget.baseUrl}/assets/placeholder/placeholder.pdf",
+      'url': "${widget.baseUrl}/assets/assets/placeholder/placeholder.pdf",
       'year': _currentDateTime.year.toString(),
       'month': _monthText(),
     };

@@ -17,7 +17,7 @@ class WeatherEmbed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Embed(
       title: "Weather",
-      url: "$baseUrl/assets/html/weather${Provider.of<ThemeProvider>(context).isLight ? "" : "_dark"}.html",
+      url: "$baseUrl/assets/assets/html/weather${Provider.of<ThemeProvider>(context).isLight ? "" : "_dark"}.html",
       icon: Icon(
         Symbols.partly_cloudy_day_sharp,
         size: 18,

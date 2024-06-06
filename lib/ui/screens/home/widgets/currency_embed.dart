@@ -16,7 +16,7 @@ class CurrencyEmbed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Embed(
       title: "Currency",
-      url: "$baseUrl/assets/html/currency${Provider.of<ThemeProvider>(context).isLight ? "" : "_dark"}.html",
+      url: "$baseUrl/assets/assets/html/currency${Provider.of<ThemeProvider>(context).isLight ? "" : "_dark"}.html",
       icon: Icon(
         Symbols.currency_exchange_sharp,
         weight: 700,
