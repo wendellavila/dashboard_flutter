@@ -2,9 +2,17 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class NavigationData {
   late List<Map> menuItems = [];
-  final String baseUrl = Uri.base.origin + Uri.base.path;
+  late String baseUrl;
 
   NavigationData._() {
+    String domain = Uri.base.origin;
+    String subfolder = Uri.base.path;
+
+    if (subfolder.substring(subfolder.length - 1) == '/') {
+      subfolder = subfolder.substring(0, subfolder.length - 1);
+    }
+
+    baseUrl = "$domain$subfolder";
     menuItems = [
       {
         'title': "Home",
