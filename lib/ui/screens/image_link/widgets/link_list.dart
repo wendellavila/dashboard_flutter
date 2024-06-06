@@ -32,7 +32,9 @@ class LinkList extends StatelessWidget {
                 width: 400,
                 child: links[i]['image'] != null
                     ? Image(
-                        image: NetworkImage(links[i]['image']),
+                        image: links[i]['image'].substring(0, 4) == 'http'
+                            ? NetworkImage(links[i]['image'])
+                            : AssetImage(links[i]['image']) as ImageProvider,
                       )
                     : Text(
                         links[i]['text'] ?? (links[i]['url'] ?? ""),

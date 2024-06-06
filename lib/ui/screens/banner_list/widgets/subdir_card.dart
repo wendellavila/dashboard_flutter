@@ -41,7 +41,7 @@ class SubdirCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   image: (subdir['images'] as List).isEmpty
                       ? const AssetImage("assets/img/placeholder/placeholder.jpg") as ImageProvider
-                      : NetworkImage(
+                      : AssetImage(
                           subdir['images'][0]['url'],
                         ),
                 ),

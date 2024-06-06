@@ -27,6 +27,8 @@ class ArticleBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String image = images.isNotEmpty ? images[0]['url'] : "assets/img/placeholder/placeholder.jpg";
+
     return SelectionArea(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -47,9 +49,7 @@ class ArticleBody extends StatelessWidget {
                         if (images.isNotEmpty)
                           Container(
                             constraints: const BoxConstraints(maxHeight: 400),
-                            child: Image(
-                              image: NetworkImage(images[0]['url']),
-                            ),
+                            child: image.substring(0, 4) == 'http' ? Image.network(image) : Image.asset(image),
                           ),
                         const SizedBox(
                           height: 40,

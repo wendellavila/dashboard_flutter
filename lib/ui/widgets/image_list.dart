@@ -32,12 +32,19 @@ class ImageList extends StatelessWidget {
                   ),
                 );
               },
-              child: Image.asset(
-                images[i]['url'],
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
+              child: images[i]['url'].substring(0, 4) == 'http'
+                  ? Image.network(
+                      images[i]['url'],
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      images[i]['url'],
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
       ],

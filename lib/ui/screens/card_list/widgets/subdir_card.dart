@@ -14,6 +14,8 @@ class SubdirCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String image = (subdir['images'] as List).isNotEmpty ? subdir['images'][0]['url'] : "assets/img/placeholder/placeholder.jpg";
+
     return InkWell(
       borderRadius: BorderRadius.circular(6),
       hoverColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
@@ -33,11 +35,7 @@ class SubdirCard extends StatelessWidget {
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: (subdir['images'] as List).isEmpty
-                        ? const AssetImage("assets/img/placeholder/placeholder.jpg") as ImageProvider
-                        : NetworkImage(
-                            subdir['images'][0]['url'],
-                          ),
+                    image: image.substring(0, 4) == 'http' ? NetworkImage(image) : AssetImage(image) as ImageProvider,
                   ),
                 ),
               ),

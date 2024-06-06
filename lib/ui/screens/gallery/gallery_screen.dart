@@ -74,8 +74,9 @@ class _GalleryScreen extends State<GalleryScreen> {
                 itemCount: widget.photos.length,
                 backgroundDecoration: BoxDecoration(color: Colors.black.withOpacity(0.0)),
                 builder: (BuildContext context, int index) {
+                  String image = widget.photos[index];
                   return PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage(widget.photos[index]),
+                    imageProvider: image.substring(0, 4) == 'http' ? NetworkImage(image) : AssetImage(image) as ImageProvider,
                   );
                 },
               ),

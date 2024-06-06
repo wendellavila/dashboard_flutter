@@ -37,7 +37,7 @@ class FileList extends StatelessWidget {
                             ),
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(
+                              image: AssetImage(
                                 image!,
                               ),
                             ),
