@@ -2,7 +2,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class NavigationData {
   late List<Map> menuItems = [];
-  final String baseUrl = Uri.base.origin;
+  final String baseUrl = Uri.base.origin + Uri.base.path;
 
   NavigationData._() {
     menuItems = [
