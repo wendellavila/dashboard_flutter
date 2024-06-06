@@ -14,7 +14,7 @@ class PageBanner extends StatelessWidget {
       child: Container(
         constraints: const BoxConstraints(maxHeight: 400),
         margin: const EdgeInsets.only(bottom: 40),
-        child: images.isEmpty ? const SizedBox.shrink() : Image.network(images[0]['url']),
+        child: images.isEmpty ? const SizedBox.shrink() : Image.asset(images[0]['url']),
       ),
     );
   }

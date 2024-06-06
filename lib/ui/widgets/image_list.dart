@@ -32,7 +32,7 @@ class ImageList extends StatelessWidget {
                   ),
                 );
               },
-              child: Image.network(
+              child: Image.asset(
                 images[i]['url'],
                 width: 200,
                 height: 200,
