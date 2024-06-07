@@ -93,7 +93,7 @@ class Birthdays extends StatelessWidget {
     );
 
     return HomeCard(
-      title: "Aniversariantes",
+      title: "Birthdays",
       icon: Icon(
         Symbols.cake_sharp,
         weight: 650,
